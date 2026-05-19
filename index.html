@@ -3,569 +3,472 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Engineer – Cybersecurity Application – Shubhankar Chavan | Sensata Technologies</title>
-
+<title>Engineer - Cybersecurity Application – Shubhankar Chavan | Sensata Technologies</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
   :root {
-    --red: #C8102E;
-    --red-dark: #8a0c1f;
-    --red-dim: rgba(200, 16, 46, 0.08);
-
-    --navy: #003A70;
-
-    --bg-deep: #0a0a0c;
-    --bg-card: #111116;
+    --red:        #C8102E;
+    --red-dark:   #8a0c1f;
+    --red-glow:   rgba(200, 16, 46, 0.18);
+    --red-dim:    rgba(200, 16, 46, 0.08);
+    --navy:       #003A70;
+    --navy-light: #0a4a8a;
+    --bg-deep:    #0a0a0c;
+    --bg-card:    #111116;
     --bg-surface: #18181f;
-
-    --border: rgba(200,16,46,0.2);
+    --border:     rgba(200,16,46,0.2);
     --border-dim: rgba(255,255,255,0.06);
-
-    --text: #f0eef0;
+    --text:       #f0eef0;
     --text-muted: #8a8a9a;
+    --text-dim:   #555565;
   }
 
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    min-height: 100vh;
   }
 
-  body{
-    background:var(--bg-deep);
-    color:var(--text);
-    font-family:'Barlow',sans-serif;
-    font-size:15px;
-    line-height:1.75;
-    min-height:100vh;
+  /* ─── BACKGROUND ─── */
+  .page-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
   }
-
-  .page-bg{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    overflow:hidden;
-    pointer-events:none;
-  }
-
-  .bg-circuit{
-    position:absolute;
-    inset:0;
+  /* Circuit-board style grid */
+  .bg-circuit {
+    position: absolute; inset: 0;
     background-image:
       linear-gradient(rgba(200,16,46,0.035) 1px, transparent 1px),
       linear-gradient(90deg, rgba(200,16,46,0.035) 1px, transparent 1px);
-    background-size:44px 44px;
+    background-size: 44px 44px;
   }
-
-  .bg-dots{
-    position:absolute;
-    inset:0;
+  /* Dot intersections */
+  .bg-dots {
+    position: absolute; inset: 0;
     background-image: radial-gradient(rgba(200,16,46,0.12) 1px, transparent 1px);
-    background-size:44px 44px;
-    background-position:22px 22px;
+    background-size: 44px 44px;
+    background-position: 22px 22px;
   }
-
-  .bg-orb-red{
-    position:absolute;
-    top:-200px;
-    right:-150px;
-    width:750px;
-    height:750px;
-    border-radius:50%;
+  .bg-orb-red {
+    position: absolute; top: -200px; right: -150px;
+    width: 750px; height: 750px; border-radius: 50%;
     background: radial-gradient(circle, rgba(200,16,46,0.07) 0%, transparent 60%);
   }
-
-  .bg-orb-navy{
-    position:absolute;
-    bottom:-200px;
-    left:-120px;
-    width:600px;
-    height:600px;
-    border-radius:50%;
+  .bg-orb-navy {
+    position: absolute; bottom: -200px; left: -120px;
+    width: 600px; height: 600px; border-radius: 50%;
     background: radial-gradient(circle, rgba(0,58,112,0.10) 0%, transparent 60%);
   }
-
-  .wrapper{
-    position:relative;
-    z-index:1;
-    max-width:840px;
-    margin:0 auto;
-    padding:52px 24px 90px;
-  }
-
-  .status-bar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:12px;
-    margin-bottom:32px;
-  }
-
-  .status-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border:1px solid rgba(200,16,46,0.35);
-    border-radius:4px;
-    padding:5px 14px;
-    font-size:11px;
-    font-family:'Barlow Condensed',sans-serif;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--red);
-    background:var(--red-dim);
-  }
-
-  .blink{
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:var(--red);
-    box-shadow:0 0 6px var(--red);
-  }
-
-  .status-date{
-    font-size:11px;
-    font-family:'Barlow Condensed',sans-serif;
-    color:var(--text-muted);
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-  }
-
-  .header-card{
-    border:1px solid var(--border);
-    border-radius:6px;
-    overflow:hidden;
-    background:var(--bg-card);
-  }
-
-  .header-strip{
-    height:4px;
-    background:linear-gradient(
-      90deg,
-      var(--red-dark),
-      var(--red),
-      #e8203e,
-      var(--red),
-      var(--red-dark)
+  .bg-scanline {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.07) 3px,
+      rgba(0,0,0,0.07) 4px
     );
+    pointer-events: none;
   }
 
-  .header-inner{
-    display:grid;
-    grid-template-columns:1fr auto;
-    gap:24px;
-    padding:36px 40px 32px;
-    align-items:start;
+  /* ─── WRAPPER ─── */
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 840px; margin: 0 auto;
+    padding: 52px 24px 90px;
+  }
+
+  /* ─── STATUS BAR ─── */
+  .status-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    margin-bottom: 32px;
+    animation: fadeDown 0.5s ease both;
+  }
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(200,16,46,0.35);
+    border-radius: 4px;
+    padding: 5px 14px;
+    font-size: 11px; font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--red);
+    background: var(--red-dim);
+  }
+  .status-badge .blink {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 6px var(--red);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .status-date {
+    font-size: 11px; font-family: 'Barlow Condensed', sans-serif;
+    color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ─── HEADER CARD ─── */
+  .header-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 3px;
+    position: relative;
+    background: var(--bg-card);
+    animation: fadeDown 0.55s ease 0.05s both;
+  }
+  /* Red top strip */
+  .header-strip {
+    height: 4px;
+    background: linear-gradient(90deg, var(--red-dark), var(--red), #e8203e, var(--red), var(--red-dark));
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
+
+  .header-inner {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 24px; padding: 36px 40px 32px;
+    align-items: start;
     background:
       radial-gradient(ellipse 70% 100% at 100% 50%, rgba(0,58,112,0.12) 0%, transparent 60%),
       radial-gradient(ellipse 40% 80% at 5% 50%, rgba(200,16,46,0.05) 0%, transparent 55%);
   }
+  @media(max-width:580px) { .header-inner { grid-template-columns: 1fr; } }
 
-  @media(max-width:580px){
-    .header-inner{
-      grid-template-columns:1fr;
-    }
+  .header-left {}
+  .header-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .header-eyebrow::before {
+    content: ''; display: block;
+    width: 28px; height: 2px;
+    background: var(--red);
+  }
+  .header-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 38px; font-weight: 800; line-height: 1.1;
+    letter-spacing: 0.01em; text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  .header-title span { color: var(--red); }
+  .header-subtitle {
+    font-size: 13.5px; color: var(--text-muted);
+    font-weight: 300; max-width: 440px; line-height: 1.65;
   }
 
-  .header-eyebrow{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:11px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--red);
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+  .header-right {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 16px;
+  }
+  /* Sensata logo using SVG text fallback */
+  .sensata-logo-block {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  }
+  .sensata-logo-img {
+    height: 38px;
+    filter: brightness(0) invert(1);
+    max-width: 180px;
+    object-fit: contain;
+  }
+  .sensata-logo-svg {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sensata-logo-icon {
+    width: 36px; height: 36px;
+  }
+  .sensata-wordmark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px; font-weight: 700; letter-spacing: 0.06em;
+    color: #ffffff; text-transform: uppercase;
+  }
+  .sensata-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; letter-spacing: 0.2em; color: var(--text-muted);
+    text-transform: uppercase; text-align: right;
   }
 
-  .header-eyebrow::before{
-    content:'';
-    width:28px;
-    height:2px;
-    background:var(--red);
+  /* Divider rule */
+  .header-rule {
+    height: 1px; margin: 0 40px;
+    background: linear-gradient(90deg, transparent, var(--red), rgba(200,16,46,0.3), transparent);
+    opacity: 0.5;
   }
 
-  .header-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:38px;
-    font-weight:800;
-    line-height:1.1;
-    text-transform:uppercase;
-    margin-bottom:12px;
+  .header-meta {
+    display: flex; flex-wrap: wrap; gap: 0;
+    padding: 0 40px;
+  }
+  .meta-item {
+    padding: 14px 24px 14px 0;
+    margin-right: 24px;
+    border-right: 1px solid var(--border-dim);
+    font-size: 11.5px;
+  }
+  .meta-item:last-child { border-right: none; }
+  .meta-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 3px;
+  }
+  .meta-value { color: var(--text); font-weight: 500; }
+
+  /* ─── SECTION CARD ─── */
+  .sec {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    padding: 36px 40px;
+    margin-top: 12px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.55s ease both;
+  }
+  .sec::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--red), var(--red-dark));
+  }
+  .sec:nth-child(2){ animation-delay:.15s }
+  .sec:nth-child(3){ animation-delay:.22s }
+  .sec:nth-child(4){ animation-delay:.29s }
+  .sec:nth-child(5){ animation-delay:.36s }
+
+  .sec-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
   }
 
-  .header-title span{
-    color:var(--red);
+  /* ─── SALUTATION ─── */
+  .salutation {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 19px; font-weight: 700; letter-spacing: 0.04em;
+    color: #fff;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-dim);
   }
 
-  .header-subtitle{
-    font-size:13.5px;
-    color:var(--text-muted);
-    max-width:470px;
-    line-height:1.7;
+  /* ─── BODY TEXT ─── */
+  .letter-body p {
+    color: #ccccd8; font-size: 15px; line-height: 1.85;
+    margin-bottom: 16px;
+  }
+  .letter-body p:last-child { margin-bottom: 0; }
+  .hl  { color: #ff4a62; font-weight: 600; }
+  .hl2 { color: #6faeff; font-weight: 500; }
+  .hl3 { color: #e0e8ff; font-weight: 500; }
+
+  /* ─── PILLARS ─── */
+  .pillars {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+    margin: 22px 0;
+  }
+  @media(max-width:560px) { .pillars { grid-template-columns: 1fr; } }
+  .pillar {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-dim);
+    border-top: 2px solid var(--red);
+    border-radius: 4px;
+    padding: 18px 16px;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .pillar:hover {
+    border-color: var(--red);
+    box-shadow: 0 4px 20px rgba(200,16,46,0.10);
+  }
+  .pillar-ico { font-size: 20px; margin-bottom: 8px; }
+  .pillar-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: #fff; margin-bottom: 4px;
+  }
+  .pillar-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+
+  /* ─── TAGS ─── */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag {
+    background: rgba(200,16,46,0.07);
+    border: 1px solid rgba(200,16,46,0.22);
+    border-radius: 3px;
+    padding: 5px 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: #e06070;
+    transition: background .2s;
+  }
+  .tag:hover { background: rgba(200,16,46,0.14); color: #ff6070; }
+  .tag.alt {
+    background: rgba(0,58,112,0.12);
+    border-color: rgba(0,58,112,0.3);
+    color: #6faeff;
+  }
+  .tag.alt:hover { background: rgba(0,58,112,0.2); }
+
+  /* ─── ALERT BLOCK ─── */
+  .alert-block {
+    background: var(--bg-surface);
+    border: 1px solid rgba(200,16,46,0.25);
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    padding: 22px 26px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .alert-block::after {
+    content: '⚡';
+    position: absolute; right: 20px; top: 18px;
+    font-size: 32px; opacity: 0.05;
+  }
+  .alert-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 10px;
+  }
+  .alert-block p {
+    color: #c8c8d8; font-size: 14px; line-height: 1.8;
   }
 
-  .sensata-logo-block{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:6px;
+  /* ─── SIGN-OFF ─── */
+  .signoff {
+    background: linear-gradient(135deg, #0e0e18, #121218);
+    border: 1px solid var(--border-dim);
+    border-top: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 38px 40px;
+    margin-top: 12px;
+    animation: fadeUp 0.55s ease 0.42s both;
+  }
+  .regards { color: var(--text-muted); font-size: 14px; margin-bottom: 14px; }
+  .sig-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px; font-weight: 800; letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #ffffff; margin-bottom: 4px;
+  }
+  .sig-name span { color: var(--red); }
+  .sig-title {
+    font-size: 13px; color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.06em;
+    margin-bottom: 28px; text-transform: uppercase;
   }
 
-  .sensata-logo-img{
-    height:38px;
-    filter:brightness(0) invert(1);
-    max-width:180px;
+  .contacts {
+    display: grid; grid-template-columns: repeat(2,1fr); gap: 10px;
+    margin-bottom: 24px;
+  }
+  @media(max-width:500px) { .contacts { grid-template-columns: 1fr; } }
+  .contact-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-dim);
+    border-radius: 4px;
+    padding: 12px 14px;
+    text-decoration: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .contact-item:hover {
+    border-color: rgba(200,16,46,0.35);
+    box-shadow: 0 2px 12px rgba(200,16,46,0.08);
+  }
+  .contact-ico { font-size: 16px; flex-shrink: 0; }
+  .contact-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--red);
+  }
+  .contact-val {
+    font-size: 12.5px; color: var(--text);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
 
-  .sensata-tagline{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:9px;
-    letter-spacing:0.2em;
-    color:var(--text-muted);
-    text-transform:uppercase;
+  /* ─── CLOSING ─── */
+  .closing {
+    margin-top: 12px;
+    background: linear-gradient(135deg, #0d0508, #120608, #0d0508);
+    border: 1px solid rgba(200,16,46,0.2);
+    border-radius: 6px;
+    padding: 56px 40px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    animation: fadeUp 0.55s ease 0.5s both;
   }
-
-  .header-rule{
-    height:1px;
-    margin:0 40px;
-    background:linear-gradient(
-      90deg,
-      transparent,
-      var(--red),
-      rgba(200,16,46,0.3),
-      transparent
-    );
+  .closing::before {
+    content: '';
+    position: absolute; top: -1px; left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
   }
-
-  .header-meta{
-    display:flex;
-    flex-wrap:wrap;
-    padding:0 40px;
+  .closing::after {
+    content: '';
+    position: absolute; bottom: -1px; left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
   }
-
-  .meta-item{
-    padding:14px 24px 14px 0;
-    margin-right:24px;
-    border-right:1px solid var(--border-dim);
-  }
-
-  .meta-item:last-child{
-    border-right:none;
-  }
-
-  .meta-label{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:10px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--red);
-    margin-bottom:3px;
-  }
-
-  .meta-value{
-    color:var(--text);
-    font-size:12px;
-  }
-
-  .sec{
-    background:var(--bg-card);
-    border:1px solid var(--border-dim);
-    border-radius:6px;
-    padding:36px 40px;
-    margin-top:12px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .sec::before{
-    content:'';
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:3px;
-    background:linear-gradient(to bottom, var(--red), var(--red-dark));
-  }
-
-  .salutation{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:19px;
-    font-weight:700;
-    color:#fff;
-    margin-bottom:22px;
-    padding-bottom:16px;
-    border-bottom:1px solid var(--border-dim);
-  }
-
-  .sec-label{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:10px;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--red);
-    margin-bottom:18px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-
-  .sec-label::after{
-    content:'';
-    flex:1;
-    height:1px;
-    background:linear-gradient(90deg, var(--border), transparent);
-  }
-
-  .letter-body p{
-    color:#ccccd8;
-    font-size:15px;
-    line-height:1.9;
-    margin-bottom:16px;
-  }
-
-  .hl{
-    color:#ff4a62;
-    font-weight:600;
-  }
-
-  .hl2{
-    color:#6faeff;
-    font-weight:500;
-  }
-
-  .hl3{
-    color:#e0e8ff;
-    font-weight:500;
-  }
-
-  .tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:18px;
-  }
-
-  .tag{
-    background:rgba(200,16,46,0.07);
-    border:1px solid rgba(200,16,46,0.22);
-    border-radius:3px;
-    padding:5px 12px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:12px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:#e06070;
-  }
-
-  .tag.alt{
-    background:rgba(0,58,112,0.12);
-    border-color:rgba(0,58,112,0.3);
-    color:#6faeff;
-  }
-
-  .pillars{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-top:22px;
-  }
-
-  @media(max-width:560px){
-    .pillars{
-      grid-template-columns:1fr;
-    }
-  }
-
-  .pillar{
-    background:var(--bg-surface);
-    border:1px solid var(--border-dim);
-    border-top:2px solid var(--red);
-    border-radius:4px;
-    padding:18px 16px;
-  }
-
-  .pillar-ico{
-    font-size:20px;
-    margin-bottom:8px;
-  }
-
-  .pillar-name{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    margin-bottom:4px;
-  }
-
-  .pillar-desc{
-    font-size:12px;
-    color:var(--text-muted);
-    line-height:1.6;
-  }
-
-  .alert-block{
-    background:var(--bg-surface);
-    border:1px solid rgba(200,16,46,0.25);
-    border-left:4px solid var(--red);
-    border-radius:4px;
-    padding:22px 26px;
-    margin:20px 0;
-  }
-
-  .alert-title{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:12px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--red);
-    margin-bottom:10px;
-  }
-
-  .alert-block p{
-    color:#c8c8d8;
-    line-height:1.9;
-  }
-
-  .signoff{
-    background:linear-gradient(135deg,#0e0e18,#121218);
-    border:1px solid var(--border-dim);
-    border-radius:6px;
-    padding:38px 40px;
-    margin-top:12px;
-  }
-
-  .regards{
-    color:var(--text-muted);
-    margin-bottom:14px;
-  }
-
-  .sig-name{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:32px;
-    font-weight:800;
-    text-transform:uppercase;
-    margin-bottom:4px;
-  }
-
-  .sig-name span{
-    color:var(--red);
-  }
-
-  .sig-title{
-    font-size:13px;
-    color:var(--text-muted);
-    font-family:'Barlow Condensed',sans-serif;
-    letter-spacing:0.06em;
-    margin-bottom:28px;
-    text-transform:uppercase;
-  }
-
-  .contacts{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
-
-  @media(max-width:500px){
-    .contacts{
-      grid-template-columns:1fr;
-    }
-  }
-
-  .contact-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    background:var(--bg-surface);
-    border:1px solid var(--border-dim);
-    border-radius:4px;
-    padding:12px 14px;
-    text-decoration:none;
-  }
-
-  .contact-lbl{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:10px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--red);
-  }
-
-  .contact-val{
-    font-size:12.5px;
-    color:var(--text);
-  }
-
-  .closing{
-    margin-top:12px;
-    background:linear-gradient(135deg,#0d0508,#120608,#0d0508);
-    border:1px solid rgba(200,16,46,0.2);
-    border-radius:6px;
-    padding:56px 40px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .closing-orb{
-    position:absolute;
-    inset:0;
+  .closing-orb {
+    position: absolute; inset: 0;
     background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,16,46,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .closing-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); opacity: 0.9;
+    margin-bottom: 20px;
+  }
+  .closing-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 27px; font-weight: 700; line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: #f8f0f0;
+    max-width: 680px; margin: 0 auto;
+    text-shadow: 0 0 40px rgba(200,16,46,0.2);
+  }
+  .closing-text .accent { color: var(--red); }
+  @media(max-width:600px) { .closing-text { font-size: 21px; } }
+  .closing-line {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    margin: 26px auto 0;
   }
 
-  .closing-eyebrow{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:11px;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:var(--red);
-    margin-bottom:20px;
-    position:relative;
-    z-index:1;
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center; margin-top: 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(138,138,154,0.35);
+    animation: fadeUp 0.5s ease 0.6s both;
   }
 
-  .closing-text{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:27px;
-    font-weight:700;
-    line-height:1.5;
-    max-width:680px;
-    margin:0 auto;
-    position:relative;
-    z-index:1;
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeDown {
+    from { opacity:0; transform:translateY(-14px); }
+    to   { opacity:1; transform:translateY(0); }
   }
-
-  .closing-text .accent{
-    color:var(--red);
-  }
-
-  .closing-line{
-    width:60px;
-    height:2px;
-    background:linear-gradient(90deg, transparent, var(--red), transparent);
-    margin:26px auto 0;
-    position:relative;
-    z-index:1;
-  }
-
-  .footer{
-    text-align:center;
-    margin-top:32px;
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:11px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:rgba(138,138,154,0.35);
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(14px); }
+    to   { opacity:1; transform:translateY(0); }
   }
 </style>
 </head>
-
 <body>
 
 <div class="page-bg">
@@ -573,349 +476,237 @@
   <div class="bg-dots"></div>
   <div class="bg-orb-red"></div>
   <div class="bg-orb-navy"></div>
+  <div class="bg-scanline"></div>
 </div>
 
 <div class="wrapper">
 
   <!-- STATUS BAR -->
   <div class="status-bar">
-    <div class="status-badge">
-      <span class="blink"></span>
-      Active Application · Engineer – Cybersecurity
-    </div>
-
-    <div class="status-date">
-      May 2026 · India – Maharashtra
-    </div>
+    <div class="status-badge"><span class="blink"></span>Active Application · Engineer - Cybersecurity</div>
+    <div class="status-date">25 April 2026 &nbsp;·&nbsp; India – Maharashtra</div>
   </div>
 
-  <!-- HEADER -->
+  <!-- ══ HEADER ══ -->
   <div class="header-card">
-
     <div class="header-strip"></div>
 
     <div class="header-inner">
-
       <div class="header-left">
-
-        <div class="header-eyebrow">
-          Professional Application · Sensata Technologies India
-        </div>
-
-        <h1 class="header-title">
-          Engineer –<br>
-          <span>Cybersecurity</span>
-        </h1>
-
-        <p class="header-subtitle">
-          A direct outreach accompanying my application — from a cybersecurity enthusiast focused on secure product engineering, vulnerability analysis, and resilient system design.
-        </p>
-
+        <div class="header-eyebrow">Professional Application · Sensata Technologies India</div>
+        <h1 class="header-title">Engineer -<br><span>Cybersecurity</span></h1>
+        <p class="header-subtitle">A direct outreach to accompany my application — from a motivated candidate ready to contribute to product cybersecurity, secure design, and lifecycle risk management.</p>
       </div>
-
-      <div class="sensata-logo-block">
-
-        <img
-          class="sensata-logo-img"
-          src="https://companieslogo.com/img/orig/ST-cdf42b13.png"
-          alt="Sensata Technologies"
-        >
-
-        <div class="sensata-tagline">
-          Sensing a changing world
+      <div class="header-right">
+        <!-- Sensata Logo (SVG fallback built-in) -->
+        <div class="sensata-logo-block">
+          <img class="sensata-logo-img"
+            src="https://companieslogo.com/img/orig/ST-cdf42b13.png"
+            alt="Sensata Technologies"
+            onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'">
+          <div id="logo-fallback" style="display:none;" class="sensata-logo-svg">
+            <svg class="sensata-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="4" fill="#C8102E"/>
+              <path d="M8 13h4v10H8zM14 10h4v13h-4zM20 15h4v8h-4zM26 12h2v11h-2z" fill="white"/>
+            </svg>
+            <span class="sensata-wordmark">Sensata</span>
+          </div>
+          <div class="sensata-tagline">Sensing a changing world</div>
         </div>
-
       </div>
-
     </div>
 
     <div class="header-rule"></div>
 
     <div class="header-meta">
-
       <div class="meta-item">
         <div class="meta-label">Role Type</div>
-        <div class="meta-value">Cybersecurity Engineering</div>
+        <div class="meta-value">Full-time / Product Security</div>
       </div>
-
       <div class="meta-item">
         <div class="meta-label">Location</div>
-        <div class="meta-value">Pune, India</div>
+        <div class="meta-value">Pune, Maharashtra</div>
       </div>
-
       <div class="meta-item">
         <div class="meta-label">Domain</div>
         <div class="meta-value">Product Cybersecurity Engineering</div>
       </div>
-
       <div class="meta-item">
         <div class="meta-label">Applied via</div>
         <div class="meta-value">LinkedIn Jobs</div>
       </div>
-
     </div>
-
   </div>
 
-  <!-- OPENING -->
+  <!-- ══ SALUTATION + OPENING ══ -->
   <div class="sec">
+    <div class="salutation">Dear Hiring Team at Sensata Technologies India,</div>
 
-    <div class="salutation">
-      Dear Hiring Team at Sensata Technologies India,
-    </div>
-
-    <div class="sec-label">
-      Opening Statement
-    </div>
-
+    <div class="sec-label">Opening Statement</div>
     <div class="letter-body">
-
       <p>
-        My name is <span class="hl">Shubhankar Chavan</span>, and I am currently pursuing my degree at <span class="hl2">MIT-ADT University</span>. I recently applied for the <span class="hl">Engineer – Cybersecurity</span> role at Sensata Technologies, and I wanted to personally reach out to express my strong interest in contributing to your cybersecurity engineering team.
+        My name is <span class="hl">Shubhankar Chavan</span>, and I am currently pursuing my degree at <span class="hl2">MIT-ADT University</span>. I recently applied for the <span class="hl">Engineer - Cybersecurity</span> position at Sensata Technologies, and I wanted to personally reach out to reinforce that application — because this role aligns precisely with the direction I am building my career in.
       </p>
-
       <p>
-        What excites me most about this opportunity is the chance to work on securing real-world products and systems throughout their lifecycle — from architecture and design reviews to vulnerability assessments, security testing, and risk mitigation. The intersection of <span class="hl3">product engineering, cybersecurity, and industrial technology</span> is exactly the direction in which I am building my career.
+        Sensata Technologies is not just another global MNC to me. As a company that operates at the intersection of <span class="hl3">sensing technology, embedded products, and mission-critical applications</span> — product security is the foundation on which customer trust and operational reliability rest. That is exactly why a Product Cybersecurity Engineering role here is genuinely meaningful, and why I am motivated to contribute to it with complete seriousness.
       </p>
-
-      <p>
-        Sensata's work across automotive, industrial, and sensing technologies makes cybersecurity especially meaningful, because security in these environments extends beyond software — it directly impacts reliability, safety, and trust in mission-critical systems.
-      </p>
-
     </div>
-
   </div>
 
-  <!-- WHY SENSATA -->
+  <!-- ══ WHY SENSATA ══ -->
   <div class="sec">
-
-    <div class="sec-label">
-      Why Sensata Technologies
-    </div>
-
+    <div class="sec-label">Why Sensata Technologies</div>
     <div class="letter-body">
-
       <p>
-        What draws me to Sensata is the opportunity to contribute to cybersecurity at the product level — securing systems not only after deployment, but throughout the entire development lifecycle. I am especially interested in areas such as <span class="hl">secure design principles, threat modeling, vulnerability analysis, and security integration</span>.
+        Sensata operates across automotive, aerospace, industrial, and energy sectors — all environments where secure, reliable products directly support <span class="hl">real-world safety and performance</span>. Products that combine hardware, software, applications, and connected systems require security to be designed, validated, monitored, and maintained throughout the full lifecycle.
       </p>
-
       <p>
-        I genuinely enjoy understanding how systems work internally — identifying weaknesses, analyzing attack surfaces, and thinking critically about how products can be designed more securely from the ground up. I have been actively building my understanding of cybersecurity engineering concepts including secure coding practices, vulnerability assessment methodologies, system hardening, and security testing workflows.
+        What draws me to this specific role is the <span class="hl">product cybersecurity engineering challenge</span>: assessing vulnerabilities, analysing threats, supporting secure design, and helping integrate security features into products without losing sight of usability, testing, and lifecycle requirements. I have invested genuine effort in understanding this space — studying security architecture, vulnerability assessment, threat modelling, and secure development practices. I want to apply that knowledge inside a world-class organization, and Sensata is exactly the right arena.
       </p>
-
-      <p>
-        I also value the collaborative nature of this role. Product security engineering requires working across development, testing, operations, and engineering teams — and I am confident in my ability to communicate effectively, learn quickly, and contribute positively in fast-paced technical environments.
-      </p>
-
     </div>
 
     <div class="tags">
-      <span class="tag">Product Security</span>
-      <span class="tag">Threat Modelling</span>
+      <span class="tag">Product Cybersecurity</span>
       <span class="tag">Vulnerability Assessment</span>
-      <span class="tag">Security Testing</span>
-      <span class="tag">Secure Development</span>
-
-      <span class="tag alt">Risk Analysis</span>
-      <span class="tag alt">Security Architecture</span>
-      <span class="tag alt">Incident Response</span>
-      <span class="tag alt">Cybersecurity Engineering</span>
+      <span class="tag">Threat Analysis</span>
+      <span class="tag">Secure Design</span>
+      <span class="tag">Security Code Review</span>
+      <span class="tag alt">Risk Assessment</span>
+      <span class="tag alt">Security Diagnostics</span>
+      <span class="tag alt">Incident Triage</span>
+      <span class="tag alt">Lifecycle Security</span>
     </div>
-
   </div>
 
-  <!-- WHAT I BRING -->
+  <!-- ══ WHAT I BRING ══ -->
   <div class="sec">
-
-    <div class="sec-label">
-      What I Bring to the Table
-    </div>
+    <div class="sec-label">What I Bring to the Table</div>
 
     <div class="pillars">
-
       <div class="pillar">
-        <div class="pillar-ico">🔐</div>
-        <div class="pillar-name">Security Engineering</div>
-        <div class="pillar-desc">
-          Strong interest in designing secure systems, identifying vulnerabilities, and improving security throughout the product lifecycle.
-        </div>
+        <div class="pillar-ico">🔒</div>
+        <div class="pillar-name">Security Mindset</div>
+        <div class="pillar-desc">Trained to think adversarially — how products fail, where gaps exist, and how to close them before exploitation.</div>
       </div>
-
       <div class="pillar">
-        <div class="pillar-ico">🛡️</div>
-        <div class="pillar-name">Vulnerability Analysis</div>
-        <div class="pillar-desc">
-          Able to analyze risks, understand attack surfaces, and think critically about potential security weaknesses in systems and applications.
-        </div>
+        <div class="pillar-ico">🏭</div>
+        <div class="pillar-name">Product Security</div>
+        <div class="pillar-desc">Focused on secure product design, security feature integration, and maintaining protection across the product lifecycle.</div>
       </div>
-
       <div class="pillar">
-        <div class="pillar-ico">💻</div>
-        <div class="pillar-name">Secure Development</div>
-        <div class="pillar-desc">
-          Focused on secure coding principles, software security fundamentals, and building reliable and resilient solutions.
-        </div>
+        <div class="pillar-ico">📊</div>
+        <div class="pillar-name">Risk Analysis</div>
+        <div class="pillar-desc">Disciplined in structured vulnerability and risk assessments — identifying, quantifying, and prioritising threats systematically.</div>
       </div>
-
       <div class="pillar">
         <div class="pillar-ico">🔍</div>
-        <div class="pillar-name">Analytical Thinking</div>
-        <div class="pillar-desc">
-          Comfortable investigating technical issues, reviewing configurations, and approaching security problems systematically.
-        </div>
+        <div class="pillar-name">Design Review</div>
+        <div class="pillar-desc">Able to examine architecture, requirements, code, and test feedback to identify security issues early and clearly.</div>
       </div>
-
-      <div class="pillar">
-        <div class="pillar-ico">🤝</div>
-        <div class="pillar-name">Team Collaboration</div>
-        <div class="pillar-desc">
-          Able to work effectively with cross-functional teams while maintaining clear communication and accountability.
-        </div>
-      </div>
-
       <div class="pillar">
         <div class="pillar-ico">⚡</div>
-        <div class="pillar-name">Fast Learner</div>
-        <div class="pillar-desc">
-          Quick to adapt to new technologies, security tools, and engineering workflows in fast-moving environments.
-        </div>
+        <div class="pillar-name">Fast Execution</div>
+        <div class="pillar-desc">I adapt quickly, learn on the fly, and deliver — integration issues, testing demands, and security risks need timely action.</div>
       </div>
-
+      <div class="pillar">
+        <div class="pillar-ico">🤝</div>
+        <div class="pillar-name">Full Ownership</div>
+        <div class="pillar-desc">I take responsibility for outcomes from assessment and triage through to resolution, documentation, and team alignment.</div>
+      </div>
     </div>
-
   </div>
 
-  <!-- COMMITMENT -->
+  <!-- ══ COMMITMENT ══ -->
   <div class="sec">
-
-    <div class="sec-label">
-      My Commitment to Sensata
-    </div>
+    <div class="sec-label">My Commitment to Sensata</div>
 
     <div class="alert-block">
-
-      <div class="alert-title">
-        ⚡ Commitment on Record
-      </div>
-
+      <div class="alert-title">⚡ Commitment on Record</div>
       <p>
-        If given this opportunity, I will approach every responsibility with professionalism, curiosity, and accountability — whether it involves vulnerability assessments, security testing, threat analysis, or supporting secure product development initiatives. I am eager to continuously learn, collaborate with experienced engineers, and contribute meaningfully to Sensata's cybersecurity objectives.
+        If given this opportunity, I will approach every task — from vulnerability and risk assessments to threat analysis, security code reviews, integration support, and testing issue resolution — with <strong style="color:#e0e8ff">complete rigour and professional accountability</strong>. I am ready to work in a fast-paced environment, collaborate with cross-functional teams, and continuously develop my expertise in line with Sensata's evolving product security requirements. This is not a position I am applying to out of convenience; it is a role I have actively sought out.
       </p>
-
     </div>
 
     <div class="letter-body">
-
       <p>
-        I am fully prepared to proceed with the next steps in your evaluation process — technical assessments, interviews, or any evaluation process required for this role. I would welcome the opportunity to demonstrate my capabilities in a structured setting and prove that I can contribute positively to your cybersecurity engineering team.
+        I am fully prepared to proceed with the next steps in your evaluation process — technical assessments, interviews, or any security screening required. I would welcome the opportunity to demonstrate my capabilities in a structured setting and prove that I can add genuine value to your product cybersecurity team.
       </p>
-
       <p>
-        Thank you sincerely for taking the time to review my application and for considering my interest in Sensata Technologies. I hope to have the opportunity to contribute to the development of secure, resilient, and reliable products that support critical industries worldwide.
+        Thank you sincerely for reading this letter and for considering my application. I hope to have the chance to contribute to Sensata's mission by helping design, assess, and protect secure products that support customers around the world.
       </p>
-
     </div>
-
   </div>
 
-  <!-- SIGNOFF -->
+  <!-- ══ SIGN-OFF ══ -->
   <div class="signoff">
-
-    <p class="regards">
-      Sincerely,
-    </p>
-
-    <div class="sig-name">
-      Shubhankar <span>Chavan</span>
-    </div>
-
-    <div class="sig-title">
-      B.Tech Student · MIT-ADT University · Cybersecurity Engineering Aspirant
-    </div>
+    <p class="regards">Sincerely,</p>
+    <div class="sig-name">Shubhankar <span>Chavan</span></div>
+    <div class="sig-title">B.Tech Student · MIT-ADT University · Product Cybersecurity Engineering Aspirant</div>
 
     <div class="contacts">
-
       <a class="contact-item" href="tel:+919657526862">
-        <span>📞</span>
+        <span class="contact-ico">📞</span>
         <div>
           <div class="contact-lbl">Phone</div>
           <div class="contact-val">+91-9657526862</div>
         </div>
       </a>
-
       <a class="contact-item" href="mailto:shubhankarchavan01@gmail.com">
-        <span>✉️</span>
+        <span class="contact-ico">✉️</span>
         <div>
           <div class="contact-lbl">Email</div>
           <div class="contact-val">shubhankarchavan01@gmail.com</div>
         </div>
       </a>
-
       <a class="contact-item" href="https://shubhankargithub.github.io/SHUBHANKAR/" target="_blank">
-        <span>🌐</span>
+        <span class="contact-ico">🌐</span>
         <div>
           <div class="contact-lbl">Portfolio</div>
           <div class="contact-val">shubhankargithub.github.io</div>
         </div>
       </a>
-
       <a class="contact-item" href="https://github.com/shubhankargithub" target="_blank">
-        <span>💻</span>
+        <span class="contact-ico">💻</span>
         <div>
           <div class="contact-lbl">GitHub</div>
           <div class="contact-val">github.com/shubhankargithub</div>
         </div>
       </a>
-
       <a class="contact-item" href="https://www.linkedin.com/in/shubhankarchavan/" target="_blank">
-        <span>🔗</span>
+        <span class="contact-ico">🔗</span>
         <div>
           <div class="contact-lbl">LinkedIn</div>
           <div class="contact-val">linkedin.com/in/shubhankarchavan</div>
         </div>
       </a>
-
       <a class="contact-item" href="http://g.co/kgs/Z9ug8w" target="_blank">
-        <span>📍</span>
+        <span class="contact-ico">📍</span>
         <div>
           <div class="contact-lbl">Google Profile</div>
           <div class="contact-val">g.co/kgs/Z9ug8w</div>
         </div>
       </a>
-
     </div>
-
   </div>
 
-  <!-- CLOSING -->
+  <!-- ══ CLOSING STATEMENT ══ -->
   <div class="closing">
-
     <div class="closing-orb"></div>
-
-    <p class="closing-eyebrow">
-      ✦ From a Candidate Who Believes in the Mission
-    </p>
-
+    <p class="closing-eyebrow">✦ From a Candidate Who Believes in Secure Products</p>
     <p class="closing-text">
-      Wishing <span class="accent">Sensata Technologies</span> continued success in building secure, reliable, and innovative products that power critical industries worldwide — where cybersecurity, engineering, and trust work together.
+      Wishing <span class="accent">Sensata Technologies</span> continued success and leadership in securing the world's most critical sensing products and connected systems — where technology meets trust, and safety is never optional.
     </p>
-
     <div class="closing-line"></div>
-
   </div>
 
-  <!-- FOOTER -->
+  <!-- ══ FOOTER ══ -->
   <div class="footer">
-
     <div style="margin-bottom:8px; opacity:0.4; font-size:10px;">
-      Sensata Technologies India · Pune
+      Sensata Technologies India · Pune · india.hr@sensata.com
     </div>
-
-    Engineer – Cybersecurity Application · Shubhankar Chavan · 2026
-
+    Sensing a Changing World · Application by Shubhankar Chavan · April 2026
   </div>
 
 </div>
-
 </body>
 </html>
